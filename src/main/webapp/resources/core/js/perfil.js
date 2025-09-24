@@ -1,18 +1,12 @@
 
 document.addEventListener("DOMContentLoaded", () => {
-    const input = document.getElementById("avatarInput");
-    const preview = document.getElementById("avatarPreview");
+    const tabs = document.querySelectorAll(".perfil-tabs .tab");
 
-    if (input) {
-        input.addEventListener("change", (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    preview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
+    tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+            tabs.forEach(t => t.classList.remove("active"));
+            tab.classList.add("active");
         });
-    }
+    });
 });
+

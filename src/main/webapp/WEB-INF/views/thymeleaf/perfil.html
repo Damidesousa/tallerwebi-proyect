@@ -3,28 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Perfil de Usuario</title>
-    <link rel="stylesheet" th:href="@{/resources/core/css/perfil.css}">
-    <script th:src="@{/resources/core/js/perfil.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/css/perfil.css}">
+    <script th:src="@{/js/perfil.js}" defer></script>
 </head>
 <body>
-    <div class="perfil-container">
-        <h1>Perfil de Usuario</h1>
-
-        <div class="perfil-avatar">
-            <img th:src="@{${perfil.avatar}}" alt="Avatar del usuario" id="avatarPreview">
-            <input type="file" id="avatarInput" name="avatar">
+<div class="perfil-container">
+    <div class="perfil-header">
+        <img class="avatar" th:src="@{${perfil.avatar}}" alt="Avatar">
+        <div class="perfil-info">
+            <h2 th:text="${perfil.nombre}">Nombre Usuario</h2>
+            <p class="username" th:text="'@' + ${perfil.usuarioNombre}">@usuario</p>
+            <p class="biografia" th:text="${perfil.biografia}">Aquí va la biografía del usuario...</p>
+            <div class="perfil-stats">
+                <span><b th:text="${perfil.seguidos}">0</b> Siguiendo</span>
+                <span><b th:text="${perfil.seguidores}">0</b> Seguidores</span>
+            </div>
         </div>
-
-        <form th:action="@{/perfil/guardar}" method="post" enctype="multipart/form-data">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" th:value="${perfil.nombre}">
-
-            <label for="biografia">Biografía:</label>
-            <textarea id="biografia" name="biografia" rows="4" cols="40" 
-                      th:text="${perfil.biografia}"></textarea>
-
-            <button type="submit">Guardar cambios</button>
-        </form>
     </div>
+
+    <div class="perfil-tabs">
+        <button class="tab active">Reseñas</button>
+    </div>
+
+    <div class="perfil-content">
+        <p>Aquí se mostrarán las reseñas de hamburguesas del usuario.</p>
+    </div>
+</div>
 </body>
 </html>
