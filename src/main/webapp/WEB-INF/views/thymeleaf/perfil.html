@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil de Usuario</title>
+    <link rel="stylesheet" th:href="@{/resources/core/css/perfil.css}">
+    <script th:src="@{/resources/core/js/perfil.js}" defer></script>
+</head>
+<body>
+    <div class="perfil-container">
+        <h1>Perfil de Usuario</h1>
+
+        <div class="perfil-avatar">
+            <img th:src="@{${perfil.avatar}}" alt="Avatar del usuario" id="avatarPreview">
+            <input type="file" id="avatarInput" name="avatar">
+        </div>
+
+        <form th:action="@{/perfil/guardar}" method="post" enctype="multipart/form-data">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" th:value="${perfil.nombre}">
+
+            <label for="biografia">Biografía:</label>
+            <textarea id="biografia" name="biografia" rows="4" cols="40" 
+                      th:text="${perfil.biografia}"></textarea>
+
+            <button type="submit">Guardar cambios</button>
+        </form>
+    </div>
+</body>
+</html>
