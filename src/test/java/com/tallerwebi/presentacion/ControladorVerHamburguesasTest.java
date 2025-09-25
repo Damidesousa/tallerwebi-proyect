@@ -1,16 +1,15 @@
 package com.tallerwebi.presentacion;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalToIgnoringCase;
+import static org.mockito.Mockito.mock;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tallerwebi.dominio.ServicioVerHamburguesa;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.equalToIgnoringCase;
-import static org.mockito.Mockito.mock;
-
-public class ControladorVerHamburguesaTest {
+public class ControladorVerHamburguesasTest {
     @Test
     public void dadoQuePidoVerHamburguesaQueMeLleveASuVistaCorrectamente() {
         ServicioVerHamburguesa sevicioVerHamburguesa = mock(ServicioVerHamburguesa.class);
