@@ -1,0 +1,21 @@
+package com.tallerwebi.infraestructura;
+
+import com.tallerwebi.dominio.PerfilUsuario;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class RepositorioPerfilImplTest {
+
+    @Test
+    void queSePuedaGuardarYBuscarUnPerfil() {
+        RepositorioPerfilImpl repo = new RepositorioPerfilImpl();
+        PerfilUsuario perfil = new PerfilUsuario();
+        perfil.setUsuarioId(1L);
+        perfil.setNombre("Agus");
+
+        repo.guardar(perfil);
+        PerfilUsuario buscado = repo.buscarPorUsuarioId(1L);
+
+        assertEquals("Agus", buscado.getNombre());
+    }
+}

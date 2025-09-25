@@ -1,0 +1,10 @@
+package com.tallerwebi.infraestructura;
+
+import com.tallerwebi.dominio.PerfilUsuario;
+
+public interface RepositorioPerfil {
+    PerfilUsuario buscarPorUsuarioId(Long usuarioId);
+    void guardar(PerfilUsuario perfil);
+    void agregarSeguido(Long usuarioId, Long seguidoId);
+    void quitarSeguido(Long usuarioId, Long seguidoId);
+}

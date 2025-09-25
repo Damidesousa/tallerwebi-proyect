@@ -1,0 +1,41 @@
+package com.tallerwebi.infraestructura;
+
+import com.tallerwebi.dominio.PerfilUsuario;
+import org.springframework.stereotype.Repository;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@Repository
+public class RepositorioPerfilImpl implements RepositorioPerfil {
+
+    private final Map<Long, PerfilUsuario> perfiles = new HashMap<>();
+
+    @Override
+    public PerfilUsuario buscarPorUsuarioId(Long usuarioId) {
+        return perfiles.get(usuarioId);
+    }
+
+    @Override
+    public void guardar(PerfilUsuario perfil) {
+        perfiles.put(perfil.getUsuarioId(), perfil);
+    }
+
+    @Override
+    public void agregarSeguido(Long usuarioId, Long seguidoId) {
+        PerfilUsuario perfil = perfiles.get(usuarioId);
+        if (perfil != null) perfil.setSeguidos(perfil.getSeguidos() + 1);
+
+        PerfilUsuario seguido = perfiles.get(seguidoId);
+        if (seguido != null) seguido.setSeguidores(seguido.getSeguidores() + 1);
+    }
+
+    @Override
+    public void quitarSeguido(Long usuarioId, Long seguidoId) {
+        PerfilUsuario perfil = perfiles.get(usuarioId);
+        if (perfil != null && perfil.getSeguidos() > 0) perfil.setSeguidos(perfil.getSeguidos() - 1);
+
+        PerfilUsuario seguido = perfiles.get(seguidoId);
+        if (seguido != null && seguido.getSeguidores() > 0) seguido.setSeguidores(seguido.getSeguidores() - 1);
+    }
+}

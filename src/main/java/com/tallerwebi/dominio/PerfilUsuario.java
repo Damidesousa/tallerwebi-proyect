@@ -1,46 +1,47 @@
 package com.tallerwebi.dominio;
 
-import javax.persistence.*;
-
-@Entity
 public class PerfilUsuario {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private Long usuarioId;
     private String nombre;
-    private String avatar;   
     private String biografia;
+    private String avatarPath;
+    private int seguidores;
+    private int seguidos;
 
-    @OneToOne
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private Usuario usuario;
+    public PerfilUsuario() { }
 
-    public PerfilUsuario() {}
+public PerfilUsuario(String nombre, String avatarPath, String biografia) {
+    this.nombre = nombre;
+    this.avatarPath = avatarPath;
+    this.biografia = biografia;
+}
 
-    public PerfilUsuario(String nombre, String avatar, String biografia) {
-        this.nombre = nombre;
-        this.avatar = avatar;
-        this.biografia = biografia;
-    }
-
-    public PerfilUsuario(String nombre, String avatar, String biografia, Usuario usuario) {
-        this(nombre, avatar, biografia);
-        this.usuario = usuario;
-    }
+public PerfilUsuario(Long usuarioId, String nombre, String avatarPath, String biografia) {
+    this.usuarioId = usuarioId;
+    this.nombre = nombre;
+    this.avatarPath = avatarPath;
+    this.biografia = biografia;
+}
 
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Long getUsuarioId() { return usuarioId; }
+    public void setUsuarioId(Long usuarioId) { this.usuarioId = usuarioId; }
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getAvatar() { return avatar; }
-    public void setAvatar(String avatar) { this.avatar = avatar; }
-
     public String getBiografia() { return biografia; }
     public void setBiografia(String biografia) { this.biografia = biografia; }
 
-    public Usuario getUsuario() { return usuario; }
-    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+    public String getAvatarPath() { return avatarPath; }
+    public void setAvatarPath(String avatarPath) { this.avatarPath = avatarPath; }
+
+    public int getSeguidores() { return seguidores; }
+    public void setSeguidores(int seguidores) { this.seguidores = seguidores; }
+
+    public int getSeguidos() { return seguidos; }
+    public void setSeguidos(int seguidos) { this.seguidos = seguidos; }
 }

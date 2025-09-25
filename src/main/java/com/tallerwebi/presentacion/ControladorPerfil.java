@@ -1,52 +1,31 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.PerfilUsuario;
-import com.tallerwebi.dominio.Usuario;
+import com.tallerwebi.dominio.ServicioPerfil;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.IOException;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/perfil")
 public class ControladorPerfil {
 
-    // Reemplazar BDD
-    private PerfilUsuario perfil = new PerfilUsuario("Agustin", "uploads/default.png", "Hola!");
+    private final ServicioPerfil servicioPerfil;
 
-    @GetMapping("/perfil")
-    public String mostrarPerfil(ModelMap model) {
-        model.addAttribute("perfil", perfil);
-        return "thymeleaf/perfil";
+    public ControladorPerfil(ServicioPerfil servicioPerfil) {
+        this.servicioPerfil = servicioPerfil;
     }
 
-    @PostMapping("/perfil/guardar")
-    public String guardarPerfil(@RequestParam("nombre") String nombre,
-                                @RequestParam("biografia") String biografia,
-                                @RequestParam(value = "avatar", required = false) MultipartFile avatar,
-                                ModelMap model) throws IOException {
-
-        perfil.setNombre(nombre);
-        perfil.setBiografia(biografia);
-
-        if (avatar != null && !avatar.isEmpty()) {
-            String uploadDir = "src/main/webapp/resources/uploads/";
-            File directorio = new File(uploadDir);
-            if (!directorio.exists()) {
-                directorio.mkdirs();
-            }
-
-            String filePath = uploadDir + avatar.getOriginalFilename();
-            avatar.transferTo(new File(filePath));
-
-            perfil.setAvatar("/resources/uploads/" + avatar.getOriginalFilename());
-        }
-
+    @GetMapping("/{usuarioId}")
+    public String verPerfil(@PathVariable Long usuarioId, Model model) {
+        PerfilUsuario perfil = servicioPerfil.obtenerPerfil(usuarioId);
         model.addAttribute("perfil", perfil);
-        return "thymeleaf/perfil"; 
+        return "perfil";
+    }
+
+    @PostMapping("/guardar")
+    public String guardarPerfil(@ModelAttribute PerfilUsuario perfil) {
+        servicioPerfil.actualizarPerfil(perfil);
+        return "redirect:/perfil/" + perfil.getUsuarioId();
     }
 }

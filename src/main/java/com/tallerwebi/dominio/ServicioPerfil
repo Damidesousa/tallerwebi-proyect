@@ -1,0 +1,8 @@
+package com.tallerwebi.dominio;
+
+public interface ServicioPerfil {
+    PerfilUsuario obtenerPerfil(Long usuarioId);
+    void actualizarPerfil(PerfilUsuario perfil);
+    void seguirUsuario(Long usuarioId, Long seguidoId);
+    void dejarDeSeguir(Long usuarioId, Long seguidoId);
+}

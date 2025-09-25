@@ -1,0 +1,45 @@
+package com.tallerwebi.dominio;
+
+public interface ServicioPerfil {
+    PerfilUsuario obtenerPerfil(Long usuarioId);
+    void actualizarPerfil(PerfilUsuario perfil);
+    void seguirUsuario(Long usuarioId, Long seguidoId);
+    void dejarDeSeguir(Long usuarioId, Long seguidoId);
+}
+ServicioPerfilImpl.java
+java
+Copiar código
+package com.tallerwebi.dominio;
+
+import com.tallerwebi.infraestructura.RepositorioPerfil;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ServicioPerfilImpl implements ServicioPerfil {
+
+    private final RepositorioPerfil repositorioPerfil;
+
+    public ServicioPerfilImpl(RepositorioPerfil repositorioPerfil) {
+        this.repositorioPerfil = repositorioPerfil;
+    }
+
+    @Override
+    public PerfilUsuario obtenerPerfil(Long usuarioId) {
+        return repositorioPerfil.buscarPorUsuarioId(usuarioId);
+    }
+
+    @Override
+    public void actualizarPerfil(PerfilUsuario perfil) {
+        repositorioPerfil.guardar(perfil);
+    }
+
+    @Override
+    public void seguirUsuario(Long usuarioId, Long seguidoId) {
+        repositorioPerfil.agregarSeguido(usuarioId, seguidoId);
+    }
+
+    @Override
+    public void dejarDeSeguir(Long usuarioId, Long seguidoId) {
+        repositorioPerfil.quitarSeguido(usuarioId, seguidoId);
+    }
+}

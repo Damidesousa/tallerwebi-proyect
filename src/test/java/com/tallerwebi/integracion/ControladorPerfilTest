@@ -1,0 +1,59 @@
+package com.tallerwebi.presentacion;
+
+import com.tallerwebi.dominio.PerfilUsuario;
+import com.tallerwebi.dominio.ServicioPerfil;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+class ControladorPerfilTest {
+
+    private MockMvc mockMvc;
+
+    @Mock
+    private ServicioPerfil servicioPerfil;
+
+    @InjectMocks
+    private ControladorPerfil controladorPerfil;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        mockMvc = MockMvcBuilders.standaloneSetup(controladorPerfil).build();
+    }
+
+    @Test
+    void deberiaMostrarElPerfilDeUnUsuario() throws Exception {
+        PerfilUsuario perfil = new PerfilUsuario(1L, "Agus", "uploads/agus.png", "Hola soy Agus");
+        when(servicioPerfil.obtenerPerfil(1L)).thenReturn(perfil);
+
+        mockMvc.perform(get("/perfil/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("perfil"))
+                .andExpect(model().attributeExists("perfil"))
+                .andExpect(model().attribute("perfil", perfil));
+
+        verify(servicioPerfil, times(1)).obtenerPerfil(1L);
+    }
+
+    @Test
+    void deberiaGuardarLosCambiosDelPerfil() throws Exception {
+        PerfilUsuario perfil = new PerfilUsuario(1L, "Agus", "uploads/agus.png", "Bio");
+
+        mockMvc.perform(post("/perfil/guardar")
+                        .flashAttr("perfil", perfil))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/perfil/" + perfil.getUsuarioId()));
+
+        verify(servicioPerfil, times(1)).actualizarPerfil(perfil);
+    }
+}

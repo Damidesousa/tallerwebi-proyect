@@ -1,3 +1,4 @@
+
 package com.tallerwebi.integracion;
 
 import com.tallerwebi.dominio.PerfilUsuario;
@@ -29,14 +30,6 @@ public class PerfilUsuarioTest {
     }
 
     @Test
-    public void deberiaAsociarUnPerfilAUnUsuario() {
-        Usuario usuario = new Usuario();
-        PerfilUsuario perfil = new PerfilUsuario("Agustin", "uploads/agus.png", "Hola!", usuario);
-
-        assertThat(perfil.getUsuario()).isEqualTo(usuario);
-    }
-
-    @Test
     public void deberiaPermitirActualizarLosTresCamposDelPerfil() {
         PerfilUsuario perfil = new PerfilUsuario("Agustin", "uploads/agus.png", "Hola!");
 
@@ -48,4 +41,14 @@ public class PerfilUsuarioTest {
         assertThat(perfil.getAvatar()).isEqualTo("uploads/avatarNuevo.png");
         assertThat(perfil.getBiografia()).isEqualTo("Nueva bio");
     }
+}
+
+    @Test
+    public void deberiaActualizarSeguidoresYSeguidos() {
+        PerfilUsuario perfil = new PerfilUsuario();
+        perfil.setSeguidores(5);
+        perfil.setSeguidos(3);
+
+        assertThat(perfil.getSeguidores()).isEqualTo(5);
+        assertThat(perfil.getSeguidos()).isEqualTo(3);
 }
