@@ -1,4 +1,4 @@
-import { obtenerUbicacion } from "../home_funciones.js";
+import { obtenerUbicacion } from "../hamburgueserias-cercanas_funciones.js";
 
 describe("Obtener ubicación", function () {
   let originalGeolocation;
