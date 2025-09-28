@@ -1,5 +1,6 @@
 package com.tallerwebi.dominio;
 
 public interface ServicioVerHamburguesa {
-    void mostrar();
+
+    Hamburguesa buscarPorId(Long id);
 } 
