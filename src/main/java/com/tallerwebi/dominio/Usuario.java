@@ -15,6 +15,9 @@ public class Usuario {
     private String password;
     private String rol;
     private Boolean activo = false;
+    private Integer edad;
+    private String nombre;
+    private String descripcion;
 
     public Long getId() {
         return id;
@@ -54,4 +57,23 @@ public class Usuario {
     public void activar() {
         activo = true;
     }
+    public Integer getEdad() {
+        return edad;
+    }
+    public void setEdad(Integer edad) {
+        this.edad = edad;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    public String getDescripcion() {
+        return descripcion;
+    }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
 }
